@@ -39,13 +39,38 @@ service:
 - also define `depends_on:` to define the sequence and flow of containers. 
 
 
-# Docker-Compose: Version ".2" [LATEST]
+# Docker-Compose: Version ".3" [LATEST]
 - Define version "3" On the top.
 - same service section just like version "2".
 - it come with docker `sawarm` feature.
+- define the `networks:` in the different services:
+```
+version: 3
+
+service:
+    mongodb:
+        image: mongodb:5.0
+        
+        networks:
+                - database
+    mysqldb:
+        image: mysql:latest
+        
+        networks:
+                - database
+        
+     application:
+        image: java_springbot:latest
+        
+        networks:
+                - application
+                                
+networks:
+        - application
+        - database
+
+```
 
 
 
 
-
--
