@@ -1,0 +1,34 @@
+radis-db:
+  images:radis
+
+
+
+postgres-db:
+  images:postgres:9.4
+    
+
+
+vote-app:
+  images:radis
+  ports:
+    - 5000:80
+  links:
+    - redis-db
+
+
+
+result-vote-app:
+  images: result-vote-app
+  ports:
+    - 5001:80
+  link:
+    - radis-db
+
+
+
+worker-app:
+  image: worker
+  link:
+  - redis-db
+  - postgres-db
+
