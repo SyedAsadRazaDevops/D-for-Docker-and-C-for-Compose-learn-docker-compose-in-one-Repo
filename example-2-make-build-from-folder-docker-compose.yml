@@ -1,1 +1,36 @@
-kk
+radis-db:
+  images:radis
+
+
+
+postgres-db:
+  images:postgres:9.4
+    
+
+
+vote-app:
+//in the vote folder/repo have dockerfile and code
+  build: ./vote
+  ports:
+    - 5000:80
+  links:
+    - redis-db
+
+
+
+result-vote-app:
+//in the result-vote folder/repo have dockerfile and code
+  build: ./result-vote
+  ports:
+    - 5001:80
+  link:
+    - radis-db
+
+
+
+worker-app:
+//in the woker folder/repo have dockerfile and code
+  build: ./worker
+  link:
+  - redis-db
+  - postgres-db
